@@ -7,7 +7,7 @@ RUN apt-get update && \
     apt-get -y --force-yes install xz-utils curl jq lsof
 
 RUN groupadd --gid 1000 node \
-  && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
+  && adduser -uid 1000 --gid 1000 --shell /bin/bash --home /usr/share/node node
 
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN set -ex \
@@ -50,5 +50,8 @@ RUN set -ex \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v0.24.6.tar.gz.asc yarn-v0.24.6.tar.gz
+
+WORKDIR /usr/share/node
+USER node
 
 CMD [ "node" ]
