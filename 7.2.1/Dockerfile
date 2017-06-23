@@ -3,9 +3,6 @@ FROM armv7/armhf-ubuntu:14.04.3
 ARG NODE_VERSION=7.2.1
 ARG YARN_VERSION=0.24.6
 
-ENV NODE_VERSION=$NODE_VERSION
-ENV YARN_VERSION=$YARN_VERSION
-
 RUN apt-get update && \
     apt-get -y --force-yes install curl jq lsof
 
@@ -32,15 +29,13 @@ RUN set -ex \
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 0.0.0
 
-RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
-  && curl -SLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
+RUN curl -SLO "https://nodejs.org/dist/v7.2.1/node-v7.2.1-linux-x64.tar.xz" \
+  && curl -SLO --compressed "https://nodejs.org/dist/v7.2.1/SHASUMS256.txt.asc" \
   && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
-  && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
-  && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
-  && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
+  && grep " node-v7.2.1-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xJf "node-v7.2.1-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+  && rm "node-v7.2.1-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
-
-ENV YARN_VERSION 0.0.0
 
 RUN set -ex \
   && for key in \
@@ -50,13 +45,13 @@ RUN set -ex \
     gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done \
-  && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
-  && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
-  && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+  && curl -fSLO --compressed "https://yarnpkg.com/downloads/0.24.6/yarn-v0.24.6.tar.gz" \
+  && curl -fSLO --compressed "https://yarnpkg.com/downloads/0.24.6/yarn-v0.24.6.tar.gz.asc" \
+  && gpg --batch --verify yarn-v0.24.6.tar.gz.asc yarn-v0.24.6.tar.gz \
   && mkdir -p /opt/yarn \
-  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
+  && tar -xzf yarn-v0.24.6.tar.gz -C /opt/yarn --strip-components=1 \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
-  && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
+  && rm yarn-v0.24.6.tar.gz.asc yarn-v0.24.6.tar.gz
 
 CMD [ "node" ]
