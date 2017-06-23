@@ -1,5 +1,8 @@
 FROM armv7/armhf-ubuntu:14.04.3
 
+RUN apt-get update && \
+    apt-get -y --force-yes install curl jq lsof
+
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
