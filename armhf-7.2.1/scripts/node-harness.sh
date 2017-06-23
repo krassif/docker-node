@@ -7,9 +7,9 @@ MODULED="./node_modules";
 
 if [ -d "$MODULED" ]
 then
-	echo "INFO: $MODULED does exist. Skipping yarn install/"
+    echo "INFO: $MODULED does exist. Skipping yarn install/"
 else
-	do eval "HOST=$HOST yarn install $INSTALL_OPTS"
+    eval "HOST=$HOST yarn install $INSTALL_OPTS"
 fi;
 
 # if [ $# == 1 ]; then SEEDS="$1,$IP"; 
