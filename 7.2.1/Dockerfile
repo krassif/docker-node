@@ -26,14 +26,14 @@ RUN set -ex \
     gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
   done
 
-RUN curl -SLO "https://nodejs.org/dist/v7.2.1/node-v7.2.1-linux-armv7l.tar.xz"
-RUN curl -SLO --compressed "https://nodejs.org/dist/v7.2.1/SHASUMS256.txt.asc"
-RUN gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc
-RUN grep " node-v7.2.1-linux-armv7l.tar.xz\$" SHASUMS256.txt | sha256sum -c -
-RUN ls -lah "node-v7.2.1-linux-armv7l.tar.xz"
-RUN tar -xJf "node-v7.2.1-linux-armv7l.tar.xz" -C /usr/local --strip-components=1
-RUN rm "node-v7.2.1-linux-armv7l.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
-RUN ln -s /usr/local/bin/node /usr/local/bin/nodejs
+RUN curl -SLO "https://nodejs.org/dist/v7.2.1/node-v7.2.1-linux-armv7l.tar.xz" \
+  && curl -SLO --compressed "https://nodejs.org/dist/v7.2.1/SHASUMS256.txt.asc" \
+  && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+  && grep " node-v7.2.1-linux-armv7l.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+  && tar -xJf "node-v7.2.1-linux-armv7l.tar.xz" -C /usr/local --strip-components=1 \
+  && rm "node-v7.2.1-linux-armv7l.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+
 
 RUN set -ex \
   && for key in \
