@@ -34,7 +34,6 @@ RUN curl -SLO "https://nodejs.org/dist/v7.2.1/node-v7.2.1-linux-armv7l.tar.xz" \
   && rm "node-v7.2.1-linux-armv7l.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-
 RUN set -ex \
   && for key in \
     6A010C5166006599AA17F08146C2130DFD2497F5 \
