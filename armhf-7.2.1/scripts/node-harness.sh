@@ -9,7 +9,18 @@ if [ -d "$MODULED" ]
 then
     echo "INFO: $MODULED does exist. Skipping yarn install/"
 else
-    eval "HOST=$HOST yarn install $INSTALL_OPTS"
+    eval "HOST=$HOST yarn install $INSTALL_OPTS" || rm -Rf $MODULED || exit 1
+fi;
+
+
+if [ ! -e "$MODULED/dist.lock" ]
+then
+    eval "HOST=$HOST yarn run dist $DIST_OPTS" && touch "$MODULED/dist.lock"
+fi;
+
+if [ ! -e "$MODULED/test.lock" ]
+then
+    eval "HOST=$HOST yarn run test $TEST_OPTS" && touch "$MODULED/test.lock"
 fi;
 
 # if [ $# == 1 ]; then SEEDS="$1,$IP"; 
