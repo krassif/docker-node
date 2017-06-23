@@ -1,4 +1,4 @@
-ROM armv7/armhf-ubuntu:14.04.3
+FROM armv7/armhf-ubuntu:14.04.3
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
