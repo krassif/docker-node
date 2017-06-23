@@ -4,7 +4,7 @@ ARG NODE_VERSION=7.2.1
 ARG YARN_VERSION=0.24.6
 
 RUN apt-get update && \
-    apt-get -y --force-yes install curl jq lsof
+    apt-get -y --force-yes install xz-utils curl jq lsof
 
 RUN groupadd --gid 1000 node \
   && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
