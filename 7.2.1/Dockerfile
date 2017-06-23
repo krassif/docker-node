@@ -1,5 +1,8 @@
 FROM armv7/armhf-ubuntu:14.04.3
 
+ARG NODE_VERSION=7.2.1
+ARG YARN_VERSION=0.24.6
+
 RUN apt-get update && \
     apt-get -y --force-yes install curl jq lsof
 
