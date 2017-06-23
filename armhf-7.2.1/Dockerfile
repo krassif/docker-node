@@ -55,13 +55,18 @@ RUN set -ex \
 # Place the node startup script where it can be found
 ADD scripts/node-harness.sh /usr/local/bin/node-harness
 
-RUN set -ex && for esdirs in bin logs health; do \
+WORKDIR /usr/share/node
+RUN set -ex && for esdirs in logs node_modules; do \
         mkdir -p "var/$esdirs"; \
         chown -R node:node "var/$esdirs"; \
         ln -s "var/$esdirs" "$esdirs"; \
     done
 
-WORKDIR /usr/share/node
+RUN set -ex && for esdirs in bin health; do \
+        mkdir -p "var/$esdirs"; \
+        chown -R root:root "var/$esdirs"; \
+        ln -s "var/$esdirs" "$esdirs"; \
+    done
 USER node
 
 CMD [ "node-harness" ]
