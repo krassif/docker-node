@@ -73,7 +73,6 @@ RUN set -ex && for esdirs in bin health; do \
     done
 
 RUN ln -s "./node_modules" ".node_modules" && \
-    yarn config set cache-folder "/usr/share/node/yarn" && \
     yarn global add node-pre-gyp && \
     yarn global add node-gyp
 
