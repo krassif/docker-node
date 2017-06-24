@@ -13,7 +13,7 @@ MODULED="$BIN/node_modules"
 MODULEDDEST="./node_modules"
 
 # Install depdendencies if not done already
-if [[ ! -z "$NO_INSTALL" && -d "$MODULED" && -e "$MODULEDDEST/modules.lock" ]]
+if [[ ! -z "$NO_INSTALL" || -d "$MODULED" || -e "$MODULEDDEST/modules.lock" ]]
 then
     echo "INFO: $MODULED does exist. Skipping $MANAGER install/"
 else
@@ -22,7 +22,7 @@ else
 fi;
 
 # Run the dist script, if not done already
-if [[ ! -z "$NO_DIST" && -e "$MODULEDDEST/dist.lock" ]]
+if [[ ! -z "$NO_DIST" || -e "$MODULEDDEST/dist.lock" ]]
 then
     echo "INFO: Skipping $MANAGER dist/"
 else
@@ -30,7 +30,7 @@ else
 fi;
 
 # Run the tests, if not done already
-if [[ ! -z "$NO_TEST" && -e "$MODULEDDEST/test.lock" ]]
+if [[ ! -z "$NO_TEST" || -e "$MODULEDDEST/test.lock" ]]
 then
     echo "INFO: Skipping $MANAGER test/"
 else
