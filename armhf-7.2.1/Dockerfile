@@ -77,7 +77,8 @@ RUN set -ex && for esdirs in bin health; do \
 
 RUN ln -s "./node_modules" ".node_modules" && \
     yarn global add node-pre-gyp && \
-    yarn global add node-gyp
+    yarn global add node-gyp && \
+    yarn global add forever
 
 USER node
 
