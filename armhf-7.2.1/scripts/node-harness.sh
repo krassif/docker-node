@@ -15,7 +15,7 @@ MODULEDDEST="./node_modules"
 # Install depdendencies if not done already
 if [[ ! -z "$NO_INSTALL" || -d "$MODULED" || -e "$MODULEDDEST/modules.lock" ]]
 then
-    echo "INFO: $MODULED does exist. Skipping $MANAGER install/"
+    echo "INFO: $MODULED (or modules.lock) does exist. Skipping $MANAGER install/"
 else
     yarn config set cache-folder "$HOME/yarn"
     ( cd $BIN && ( eval "HOST=$HOST $MANAGER install --no-lockfile --modules-folder \".$MODULEDDEST\" $INSTALL_OPTS" || rm -Rf ".$MODULEDDEST/*" || exit 1 ) ) || exit 1
