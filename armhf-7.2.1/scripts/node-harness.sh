@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 # Get running container's IP
 HOST=`hostname --ip-address`
 
 if [ -z "$MANAGER" ]; then
     MANAGER="yarn"
+fi;
+
+if [ -z "$NODE_COMMAND" ]; then
+    $NODE_COMMAND="start"
 fi;
 
 # The filder containing the dependencies
@@ -40,7 +46,7 @@ else
 fi;
 
 # Finally, run the start option
-( cd $BIN && eval "HOST=$HOST $MANAGER run start $NODE_OPTS" || exit 1 )
+( cd $BIN && eval "HOST=$HOST $MANAGER run $NODE_COMMAND $NODE_OPTS" || exit 1 )
 
 # return normal exit
 exit 0

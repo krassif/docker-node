@@ -80,6 +80,10 @@ RUN ln -s "./node_modules" ".node_modules" && \
     yarn global add node-gyp && \
     yarn global add forever
 
+# Add extensible healthcheck
+ADD scripts/node-healthcheck.sh /usr/local/bin/node-healthcheck
+HEALTHCHECK --interval=60s --timeout=15s --retries=5 CMD [ "node-healthcheck" ]
+
 USER node
 
 CMD [ "node-harness" ]
