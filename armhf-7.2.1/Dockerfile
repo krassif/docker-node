@@ -60,6 +60,8 @@ RUN set -ex \
 ADD scripts/node-harness.sh /usr/local/bin/node-harness
 
 WORKDIR /usr/share/node
+RUN chown -R node:node ./
+
 RUN set -ex && for esdirs in logs node_modules yarn; do \
         mkdir -p "var/$esdirs"; \
         chown -R node:node "var/$esdirs"; \
