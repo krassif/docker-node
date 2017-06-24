@@ -19,7 +19,7 @@ then
 else
     ( cd $BIN && ( eval "HOST=$HOST $MANAGER install --no-lockfile --modules-folder \".$MODULEDDEST\" $INSTALL_OPTS" || rm -Rf ".$MODULEDDEST/*" || exit 1 ) ) || exit 1
     touch "$MODULEDDEST/modules.lock"
-    chown -R root:root "$MODULEDDEST/*"
+    # chown -R root:root "$MODULEDDEST/"
 fi;
 
 # Run the dist script, if not done already
