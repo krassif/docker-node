@@ -17,7 +17,7 @@ if [[ ! -z "$NO_INSTALL" && -d "$MODULED" && -e "$MODULEDDEST/modules.lock" ]]
 then
     echo "INFO: $MODULED does exist. Skipping $MANAGER install/"
 else
-    ( cd $BIN && ( eval "HOST=$HOST $MANAGER install --no-lockfile --modules-folder \".$MODULEDDEST\" $INSTALL_OPTS" || rm -Rf ".$MODULEDDEST/*" || exit 1 ) )
+    ( cd $BIN && ( eval "HOST=$HOST $MANAGER install --no-lockfile --modules-folder \".$MODULEDDEST\" $INSTALL_OPTS" || rm -Rf ".$MODULEDDEST/*" || exit 1 ) ) || exit 1
     touch "$MODULEDDEST/modules.lock"
 fi;
 

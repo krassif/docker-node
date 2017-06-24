@@ -8,7 +8,8 @@ RUN apt-get update && \
     apt-get -y --force-yes install xz-utils curl jq lsof && \
     apt-get -y --force-yes install build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip git && \
     apt-get -y --force-yes install python2.7 && \
-    apt-get update
+    apt-get update && \
+    ln -s /usr/bin/python2.7 /usr/bin/python
 
 RUN groupadd --gid 1000 node \
   && adduser -uid 1000 --gid 1000 --shell /bin/bash --home /usr/share/node node
