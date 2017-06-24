@@ -17,7 +17,7 @@ if [[ ! -z "$NO_INSTALL" || -d "$MODULED" || -e "$MODULEDDEST/modules.lock" ]]
 then
     echo "INFO: $MODULED does exist. Skipping $MANAGER install/"
 else
-    yarn config set cache-folder "~/yarn"
+    yarn config set cache-folder "$HOME/yarn"
     ( cd $BIN && ( eval "HOST=$HOST $MANAGER install --no-lockfile --modules-folder \".$MODULEDDEST\" $INSTALL_OPTS" || rm -Rf ".$MODULEDDEST/*" || exit 1 ) ) || exit 1
     touch "$MODULEDDEST/modules.lock"
     # chown -R root:root "$MODULEDDEST/"
