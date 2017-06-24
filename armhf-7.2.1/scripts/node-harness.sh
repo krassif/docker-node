@@ -38,7 +38,7 @@ else
 fi;
 
 # Finally, run the start option
-( cd $BIN && eval "HOST=$HOST node $NODE_OPTS" || exit 1 )
+( cd $BIN && eval "HOST=$HOST $MANAGER run start $NODE_OPTS" || exit 1 )
 
 # return normal exit
 exit 0

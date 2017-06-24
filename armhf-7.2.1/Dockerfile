@@ -71,6 +71,9 @@ RUN set -ex && for esdirs in bin health; do \
         chown -R root:root "var/$esdirs"; \
         ln -s "var/$esdirs" "$esdirs"; \
     done
+
+RUN ln -s "./node_modules" ".node_modules"
+
 USER node
 
 CMD [ "node-harness" ]
