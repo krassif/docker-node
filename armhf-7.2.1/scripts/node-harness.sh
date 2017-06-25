@@ -10,7 +10,7 @@ if [ -z "$MANAGER" ]; then
 fi;
 
 if [ -z "$NODE_COMMAND" ]; then
-    $NODE_COMMAND="start"
+    NODE_COMMAND="start"
 fi;
 
 # The filder containing the dependencies
