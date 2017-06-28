@@ -14,7 +14,7 @@ if [ -z "$NODE_COMMAND" ]; then
 fi;
 
 # The filder containing the dependencies
-BIN="./bin" 
+BIN="./bin"
 MODULED="$BIN/node_modules"
 MODULEDDEST="./node_modules"
 
@@ -28,14 +28,13 @@ else
     touch "$MODULEDDEST/modules.lock"
     # chown -R root:root "$MODULEDDEST/"
 fi;
-export PATH="$PATH:$MODULEDDEST/.bin:$MODULED/.bin"
 
 # Run the dist script, if not done already
 if [[ ! -z "$NO_DIST" || -e "$MODULEDDEST/dist.lock" ]]
 then
     echo "INFO: Skipping $MANAGER dist/"
 else
-    ( cd $BIN && eval "HOST=$HOST $MANAGER run dist $DIST_OPTS" ) && touch "$MODULEDDEST/dist.lock"
+    ( PATH="$PATH:.$MODULEDDEST/.bin:.$MODULED/.bin"; cd $BIN && eval "HOST=$HOST $MANAGER run dist $DIST_OPTS" ) && touch "$MODULEDDEST/dist.lock"
 fi;
 
 # Run the tests, if not done already
@@ -43,7 +42,7 @@ if [[ ! -z "$NO_TEST" || -e "$MODULEDDEST/test.lock" ]]
 then
     echo "INFO: Skipping $MANAGER test/"
 else
-    ( cd $BIN && eval "HOST=$HOST $MANAGER run test $TEST_OPTS" ) && touch "$MODULEDDEST/test.lock"
+    ( PATH="$PATH:.$MODULEDDEST/.bin:.$MODULED/.bin"; cd $BIN && eval "HOST=$HOST $MANAGER run test $TEST_OPTS" ) && touch "$MODULEDDEST/test.lock"
 fi;
 
 # Finally, run the start option
