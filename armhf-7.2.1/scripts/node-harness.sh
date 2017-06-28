@@ -28,7 +28,7 @@ else
     touch "$MODULEDDEST/modules.lock"
     # chown -R root:root "$MODULEDDEST/"
 fi;
-export PATH=$PATH:$MODULEDDEST/.bin:$MODULED/.bin
+PATH="$PATH:$MODULEDDEST/.bin:$MODULED/.bin"
 
 # Run the dist script, if not done already
 if [[ ! -z "$NO_DIST" || -e "$MODULEDDEST/dist.lock" ]]
