@@ -7,7 +7,7 @@ HOST="$(hostname --ip-address || echo '127.0.0.1')"
 
 # run a basic check
 if [ ! -z "$PORT" ]; then
-	curl --fail --max-time 1 "http://$HOST:$PORT/" || exit 1;
+    curl --fail --max-time 1 "http://$HOST:$PORT/" || exit 1;
 fi;
 
 # look for additional, on the container volumes health check scripts
