@@ -19,14 +19,18 @@ MODULED="$BIN/node_modules"
 MODULEDDEST="$HOME/node_modules"
 
 # Install depdendencies if not done already
-if [[ ! -z "$NO_INSTALL" || -d "$MODULED" || -e "$MODULEDDEST/modules.lock" ]]
+if [[ ! -z "$NO_INSTALL" || \
+    ( -d "$MODULED" && ! -L "$MODULED" ) || \
+    ( -d "$MODULED" &&   -L "$MODULED" && -e "$MODULED/modules.lock" ) || \
+    -e "$MODULEDDEST/modules.lock" ]]
 then
     echo "INFO: $MODULED (or modules.lock) does exist. Skipping $MANAGER install/"
 else
     yarn config set cache-folder "$HOME/yarn"
     ( cd $BIN && ( eval "HOST=$HOST $MANAGER install --no-lockfile --modules-folder \"$MODULEDDEST\" $INSTALL_OPTS" ) ) || ( rm -Rf "$MODULEDDEST/*"; exit 1 )
-    touch "$MODULEDDEST/modules.lock"
-    chown -R root:root "$MODULEDDEST/"
+    touch "$MODULEDDEST/modules.lock" 
+    touch "$MODULED/modules.lock" || echo "WARNING: Failed to create $MODULED/modules.lock"
+    # chown -R root:root "$MODULEDDEST/"
 fi;
 
 # Run the dist script, if not done already
