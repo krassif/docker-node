@@ -2,7 +2,7 @@ FROM arm64v8/ubuntu:14.04
 
 ARG NODE_VERSION=7.2.1
 ARG YARN_VERSION=0.24.6
-ARG ARCH=armv7l
+ARG ARCH=arm64
 
 RUN apt-get update && \
     apt-get -y --force-yes install xz-utils curl jq lsof && \
